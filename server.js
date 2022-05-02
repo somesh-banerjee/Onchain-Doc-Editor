@@ -3,6 +3,7 @@ var socket = require("socket.io");
 const path = require("path");
 const port = process.env.PORT || 8080;
 const Document = require("./Document");
+const mongoose = require("mongoose");
 
 var app = express();
 
@@ -11,10 +12,10 @@ app.use(express.urlencoded({ extended: false }));
 
 const __myPath = path.resolve();
 
-app.use(express.static(path.join(__myPath, "/frontend/build")));
+app.use(express.static(path.join(__myPath, "/client/build")));
 
 app.get("*", (req, res) =>
-  res.sendFile(path.resolve(__myPath, "frontend", "build", "index.html"))
+  res.sendFile(path.resolve(__myPath, "client", "build", "index.html"))
 );
 
 const server = app.listen(port, () =>
@@ -30,7 +31,7 @@ mongoose.connect("mongodb://localhost:27017/docs-dapp", {
 
 const io = require("socket.io")(3001, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: `http://localhost:${port}`,
     methods: ["GET", "POST"],
   },
 });

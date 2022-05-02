@@ -10,7 +10,7 @@
 /coverage
 
 # production
-/frontend/build
+/client/build
 
 # misc
 .notes
