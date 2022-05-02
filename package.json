@@ -5,14 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "devStart": "nodemon server.js",
     "start": "node server.js"
   },
-  "author": "Somesh Banerjee",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.0",
-    "nodemon": "^2.0.15",
-    "socket.io": "^4.5.0",
-    "socket.io-client": "^4.5.0"
+    "mongoose": "^6.3.1",
+    "socket.io": "^4.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
   }
 }

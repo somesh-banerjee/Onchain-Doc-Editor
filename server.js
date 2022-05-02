@@ -1,7 +1,8 @@
-var express = require('express');
-var socket = require('socket.io');
+var express = require("express");
+var socket = require("socket.io");
 const path = require("path");
 const port = process.env.PORT || 8080;
+const Document = require("./Document");
 
 var app = express();
 
@@ -11,34 +12,54 @@ app.use(express.urlencoded({ extended: false }));
 const __myPath = path.resolve();
 
 app.use(express.static(path.join(__myPath, "/frontend/build")));
-	
+
 app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__myPath, "frontend", "build", "index.html"))
+  res.sendFile(path.resolve(__myPath, "frontend", "build", "index.html"))
 );
 
-const server = app.listen(port, () => console.log(`Server started on port ${port}`));
+const server = app.listen(port, () =>
+  console.log(`Server started on port ${port}`)
+);
 
-var io = socket(server, {
-    cors: {
-      origin: '*',
-    }
+mongoose.connect("mongodb://localhost:27017/docs-dapp", {
+  // useNewUrlParser: true,
+  useUnifiedTopology: true,
+  // useFindAndModify: false,
+  // useCreateIndex: true,
 });
 
-io.sockets.on('connection', connection);
+const io = require("socket.io")(3001, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
+});
 
-var text = {
-    text: ''
-};
+io.sockets.on("connection", connection);
 
-function connection(socket){
-    console.log('a new user with id ' + socket.id + " has entered");
-    console.log(socket.data)
-    socket.emit('newUser', text);
+const defaultValue = "";
 
-    socket.on('text', handleTextSent);
+function connection(socket) {
+  socket.on("get-document", async (documentId) => {
+    // console.log("Connected");
+    const document = await findOrCreateDocument(documentId);
+    socket.join(documentId);
+    socket.emit("load-document", document.data);
 
-    function handleTextSent(data){
-        text.text = data.text
-        io.sockets.emit('text', data);
-    }
+    socket.on("send-changes", (delta) => {
+      socket.broadcast.to(documentId).emit("receive-changes", delta);
+    });
+
+    socket.on("save-document", async (data) => {
+      await Document.findByIdAndUpdate(documentId, { data });
+    });
+  });
+}
+
+async function findOrCreateDocument(id) {
+  if (id == null) return;
+
+  const document = await Document.findById(id);
+  if (document) return document;
+  return await Document.create({ _id: id, data: defaultValue });
 }
