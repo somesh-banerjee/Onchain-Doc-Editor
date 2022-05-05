@@ -9,10 +9,8 @@ contract Editor{
     }
     mapping(string => Document) public docs;
 
-    function newDoc(string memory _key, string memory _url) public {
+    function newDoc(string memory _key) public {
         docs[_key].owner = msg.sender;
-        docs[_key].versions.push(_url);
-        docs[_key].time.push(block.timestamp);
     }
 
     function newVersion(string memory _key, string memory _url) public {
