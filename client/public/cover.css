@@ -1,0 +1,24 @@
+
+.navbar{
+    margin: 0.5rem 1rem 2rem;
+    background-color: #9ac9f721;
+}
+
+.container .btn-primary {
+    color: #0062cc;
+    background-color: rgb(0 123 255 / 9%);
+    border-color: rgb(0 123 255 / 6%);
+}
+
+
+
+.form-control {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.btn-new-container .btn-light {
+    color: #f8f9fa;
+    background-color: #0381ffb5;
+    border-color: #007dfb45;
+}
