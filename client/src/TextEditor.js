@@ -81,6 +81,10 @@ export default function TextEditor() {
     };
   }, [socket, quill]);
 
+  const updateDoc = () => {
+    console.log('first')
+  }
+
   const wrapperRef = useCallback((wrapper) => {
     if (wrapper == null) return;
 
@@ -96,5 +100,10 @@ export default function TextEditor() {
     setQuill(ql);
   }, []);
 
-  return <div className="container" ref={wrapperRef}></div>;
+  return (
+    <div>
+      <button className="btn btn-primary btn-lg btn-block" onClick={updateDoc}>Commit</button> 
+      <div className="container" ref={wrapperRef}></div>
+    </div>
+  );
 }
