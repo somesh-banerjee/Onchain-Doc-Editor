@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import createDoc from "./web3/createDoc"
+import { v4 as uuidV4 } from "uuid";
 
 export default function Home() {
   const [check, setCheck] = useState(false);
@@ -16,9 +18,16 @@ export default function Home() {
     setTextID(newTextID);
   };
 
-  const openNewDoc = () => {
-    history.push("/newDoc");
-    history.go();
+  const openNewDoc = async () => {
+    const key = uuidV4()
+    try {
+      await createDoc(key)  
+      history.push(`/documents/${key}`);
+      history.go();    
+    } catch (er) {
+      console.log(er)
+    }
+    
   };
 
   const openSavedDoc = () => {
@@ -28,22 +37,22 @@ export default function Home() {
 
   return (
     <div>
-      <nav class="navbar navbar-light bg-light">
-        <span class="navbar-brand mb-0 h1">Document</span>
+      <nav className="navbar navbar-light bg-light">
+        <span className="navbar-brand mb-0 h1">Document</span>
       </nav>
 
-      <div class="container">
+      <div className="container">
         <button
           type="button"
           onClick={openNewDoc}
-          class="btn btn-primary btn-lg btn-block"
+          className="btn btn-primary btn-lg btn-block"
         >
           New Document
         </button>
         <button
           onClick={handleChk}
           type="button"
-          class="btn btn-primary btn-lg btn-block"
+          className="btn btn-primary btn-lg btn-block"
         >
           Saved Document
         </button>
@@ -59,7 +68,7 @@ export default function Home() {
               rows="1"
             ></textarea>
 
-            <button onClick={openSavedDoc} type="button" class="btn btn-light">
+            <button onClick={openSavedDoc} type="button" className="btn btn-light">
               Open
             </button>
           </div>
