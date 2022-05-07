@@ -40,6 +40,25 @@
 	{
 		"inputs": [
 			{
+				"internalType": "address",
+				"name": "x",
+				"type": "address"
+			}
+		],
+		"name": "getMyDocs",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "string",
 				"name": "_key",
 				"type": "string"

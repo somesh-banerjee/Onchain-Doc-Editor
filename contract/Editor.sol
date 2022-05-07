@@ -8,9 +8,11 @@ contract Editor{
         string[] versions; 
     }
     mapping(string => Document) public docs;
+    mapping(address => string[]) myDocs;
 
     function newDoc(string memory _key) public {
         docs[_key].owner = msg.sender;
+        myDocs[msg.sender].push(_key);
     }
 
     function newVersion(string memory _key, string memory _url) public {
@@ -21,5 +23,9 @@ contract Editor{
 
     function getAllVersions(string memory _key) public view returns(string[] memory){
         return docs[_key].versions;
+    }
+
+    function getMyDocs(address x) public view returns(string[] memory){
+        return myDocs[x];
     }
 }
