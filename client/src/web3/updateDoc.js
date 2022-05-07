@@ -10,7 +10,7 @@ const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
 
 import ABI from "./Editor.json"
 
-export default function UpdateDoc(key,file) {
+const UpdateDoc = async(key,file) => {
 
     let url
     try {
@@ -31,7 +31,7 @@ export default function UpdateDoc(key,file) {
     const provider = new ethers.providers.Web3Provider(connection)
     const signer = provider.getSigner()
 
-    const Contract = new ethers.Contract(contractAddress, ABI.abi, signer)
+    const Contract = new ethers.Contract(contractAddress, ABI, signer)
     
     try {
         let transaction = await Contract.newVersion(key,url)
@@ -44,3 +44,5 @@ export default function UpdateDoc(key,file) {
     }
 
 }
+
+export default UpdateDoc
