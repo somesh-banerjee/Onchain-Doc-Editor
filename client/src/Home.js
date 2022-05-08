@@ -16,6 +16,7 @@ export default function Home() {
   const [check, setCheck] = useState(false);
   const [textID, setTextID] = useState("");
   const [docs, setDocs] = useState([]);
+  const [loadStatus, setLoadStatus] = useState(false);
 
   const history = useHistory();
 
@@ -48,8 +49,10 @@ export default function Home() {
 
   const openNewDoc = async () => {
     const key = uuidV4()
+    setLoadStatus(true)
     try {
-      await createDoc(key)  
+      await createDoc(key)
+      setLoadStatus(false)  
       history.push(`/documents/${key}`);
       history.go();    
     } catch (er) {
@@ -75,7 +78,7 @@ export default function Home() {
           onClick={openNewDoc}
           className="btn btn-primary btn-lg btn-block"
         >
-          New Document
+          {loadStatus ? 'Waiting for transaction to complete...' : 'New Document'}
         </button>
         <div>
           <h2>Your Documents</h2>

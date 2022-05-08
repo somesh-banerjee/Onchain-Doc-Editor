@@ -23,6 +23,7 @@ export default function TextEditor() {
   const [socket, setSocket] = useState();
   const [quill, setQuill] = useState();
   const [file, setFile] = useState();
+  const [loadStatus, setLoadStatus] = useState(false);
 
   useEffect(() => {
     const skt = io("http://localhost:3001");
@@ -86,8 +87,10 @@ export default function TextEditor() {
   }, [socket, quill]);
 
   const updateDoc = async() => {
+    setLoadStatus(true)
     console.log(JSON.stringify(file))
     await UpdateDoc(documentId,JSON.stringify(file))
+    setLoadStatus(false)
   }
 
   const wrapperRef = useCallback((wrapper) => {
@@ -107,7 +110,9 @@ export default function TextEditor() {
 
   return (
     <div>
-      <button className="btn btn-primary btn-lg btn-block" onClick={updateDoc}>Commit</button> 
+      <button className="btn btn-primary btn-lg btn-block" onClick={updateDoc}>
+        {loadStatus ? 'Waiting for transaction to complete...' : 'Commit'}
+      </button> 
       <div className="container" ref={wrapperRef}></div>
     </div>
   );
