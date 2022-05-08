@@ -29,7 +29,6 @@ export default function Home() {
       const userAddress = await signer.getAddress()
       try {
           let transaction = await Contract.getMyDocs(userAddress)
-          console.log(transaction);
           setDocs(transaction)
       } catch (err) {
           console.log(err);

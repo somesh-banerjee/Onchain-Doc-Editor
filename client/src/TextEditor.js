@@ -3,6 +3,7 @@ import Quill from "quill";
 import "quill/dist/quill.snow.css";
 import { io } from "socket.io-client";
 import { useParams } from "react-router-dom";
+import UpdateDoc from './web3/updateDoc'
 
 const SAVE_INTERVAL_MS = 2000;
 const TOOLBAR_OPTIONS = [
@@ -21,6 +22,7 @@ export default function TextEditor() {
   const { id: documentId } = useParams();
   const [socket, setSocket] = useState();
   const [quill, setQuill] = useState();
+  const [file, setFile] = useState();
 
   useEffect(() => {
     const skt = io("http://localhost:3001");
@@ -36,6 +38,7 @@ export default function TextEditor() {
 
     socket.once("load-document", (document) => {
       quill.setContents(document);
+      setFile(document);
       quill.enable();
     });
 
@@ -81,8 +84,9 @@ export default function TextEditor() {
     };
   }, [socket, quill]);
 
-  const updateDoc = () => {
-    console.log('first')
+  const updateDoc = async() => {
+    console.log(JSON.stringify(file))
+    await UpdateDoc("as",JSON.stringify(file))
   }
 
   const wrapperRef = useCallback((wrapper) => {

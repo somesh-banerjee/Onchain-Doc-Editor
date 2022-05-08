@@ -31,7 +31,7 @@ mongoose.connect("mongodb://localhost:27017/docs-dapp", {
 
 const io = require("socket.io")(3001, {
   cors: {
-    origin: `http://localhost:${port}`,
+    origin: `http://localhost:3000`,
     methods: ["GET", "POST"],
   },
 });
