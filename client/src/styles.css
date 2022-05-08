@@ -34,6 +34,27 @@ body {
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
 }
 
+.d-flex {
+    padding: 1rem 0rem 1rem;
+}
+
+.btn-primary {
+    color: #0062cc;
+    background-color: rgb(0 123 255 / 9%);
+    border-color: rgb(0 123 255 / 56%);
+}
+
+.List-container {
+    width: -moz-fit-content;
+    width: fit-content;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #007bff1a;
+    position: inherit;
+    margin-bottom: 2rem;
+    box-shadow: 0 0 5px 0 rgb(0 0 0 / 30%);
+}
+
 @page{
     margin: 1in;
 }
@@ -54,5 +75,11 @@ body {
 
     .container .ql-toolbar.ql-snow {
         display: none;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .container .ql-toolbar.ql-snow {
+        display: block; 
     }
 }
