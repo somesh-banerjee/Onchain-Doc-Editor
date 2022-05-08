@@ -38,7 +38,7 @@ export default function TextEditor() {
 
     socket.once("load-document", (document) => {
       quill.setContents(document);
-      setFile(document);
+      //setFile(document);
       quill.enable();
     });
 
@@ -50,6 +50,7 @@ export default function TextEditor() {
 
     const interval = setInterval(() => {
       socket.emit("save-document", quill.getContents());
+      setFile(quill.getContents());
     }, SAVE_INTERVAL_MS);
 
     return () => {
@@ -85,7 +86,7 @@ export default function TextEditor() {
   }, [socket, quill]);
 
   const updateDoc = async() => {
-    console.log(documentId)
+    console.log(JSON.stringify(file))
     await UpdateDoc(documentId,JSON.stringify(file))
   }
 
