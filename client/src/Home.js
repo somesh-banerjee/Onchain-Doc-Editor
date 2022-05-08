@@ -85,12 +85,12 @@ export default function Home() {
         <div>
           <h2>Your Documents</h2>
           <ul>
-          { docs &&
-            docs.map(i=>(
+          { docs.length>0 ? 
+            (docs.map(i=>(
               <li key={i._id}>
                 <a href={`/documents/${i}`}>{i}</a>
               </li>
-            ))
+            ))) : 'No Documents'
           }
           </ul>
         </div>

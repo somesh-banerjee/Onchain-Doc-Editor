@@ -4,6 +4,7 @@ import "quill/dist/quill.snow.css";
 import { io } from "socket.io-client";
 import { useParams } from "react-router-dom";
 import UpdateDoc from './web3/updateDoc'
+import List from "./components/List";
 
 const SAVE_INTERVAL_MS = 2000;
 const TOOLBAR_OPTIONS = [
@@ -24,6 +25,7 @@ export default function TextEditor() {
   const [quill, setQuill] = useState();
   const [file, setFile] = useState();
   const [loadStatus, setLoadStatus] = useState(false);
+  const [showList, setShowList] = useState(false);
 
   useEffect(() => {
     const skt = io("http://localhost:3001");
@@ -110,9 +112,17 @@ export default function TextEditor() {
 
   return (
     <div>
-      <button className="btn btn-primary btn-lg btn-block" onClick={updateDoc}>
-        {loadStatus ? 'Waiting for transaction to complete...' : 'Commit'}
-      </button> 
+      <div className="d-flex justify-content-around">
+        <button className="btn btn-primary btn-lg" onClick={() => setShowList(!showList)}>
+          All Versions
+        </button>
+        <button className="btn btn-primary btn-lg" onClick={updateDoc}>
+          {loadStatus ? 'Waiting for transaction to complete...' : 'Commit'}
+        </button> 
+      </div>
+      {
+        showList && <List id={documentId} />
+      }
       <div className="container" ref={wrapperRef}></div>
     </div>
   );

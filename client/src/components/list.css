@@ -1,0 +1,16 @@
+.List-container{
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: skyblue;
+    position: absolute;
+    top: 150px;
+    left: 20px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 10;
+    word-break: break-all;
+}
