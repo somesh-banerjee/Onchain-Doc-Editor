@@ -9,7 +9,7 @@ import {
 import ABI from "./Editor.json"
 
 const CreateDoc = async(key) => {
-
+    let ret = false
     const web3Modal = new Web3Modal()
     const connection = await web3Modal.connect()
     const provider = new ethers.providers.Web3Provider(connection)
@@ -22,10 +22,11 @@ const CreateDoc = async(key) => {
         let tx = await transaction.wait()
         let event = tx.events[0]
         console.log(event);
+        ret = true
     } catch (err) {
         console.log(err);
     }
-
+    return ret
 }
 
 export default CreateDoc

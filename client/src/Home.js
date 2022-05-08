@@ -51,10 +51,12 @@ export default function Home() {
     const key = uuidV4()
     setLoadStatus(true)
     try {
-      await createDoc(key)
+      const ret = await createDoc(key)
       setLoadStatus(false)  
-      history.push(`/documents/${key}`);
-      history.go();    
+      if(ret){
+        history.push(`/documents/${key}`);
+        history.go();    
+      }
     } catch (er) {
       console.log(er)
     }

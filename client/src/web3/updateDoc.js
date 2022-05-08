@@ -11,7 +11,7 @@ const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
 
 
 const UpdateDoc = async(key,file) => {
-
+    let ret = false
     let url
     try {
         const added = await client.add(
@@ -37,10 +37,11 @@ const UpdateDoc = async(key,file) => {
     try {
         let transaction = await Contract.newVersion(key,url)
         await transaction.wait()
+        ret = true
     } catch (err) {
         console.log(err);
     }
-
+    return ret
 }
 
 export default UpdateDoc

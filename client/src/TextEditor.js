@@ -89,7 +89,7 @@ export default function TextEditor() {
   const updateDoc = async() => {
     setLoadStatus(true)
     console.log(JSON.stringify(file))
-    await UpdateDoc(documentId,JSON.stringify(file))
+    const ret = await UpdateDoc(documentId,JSON.stringify(file))
     setLoadStatus(false)
   }
 
