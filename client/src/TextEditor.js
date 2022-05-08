@@ -85,8 +85,8 @@ export default function TextEditor() {
   }, [socket, quill]);
 
   const updateDoc = async() => {
-    console.log(JSON.stringify(file))
-    await UpdateDoc("as",JSON.stringify(file))
+    console.log(documentId)
+    await UpdateDoc(documentId,JSON.stringify(file))
   }
 
   const wrapperRef = useCallback((wrapper) => {

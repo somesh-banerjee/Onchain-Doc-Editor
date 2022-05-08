@@ -27,22 +27,19 @@ const UpdateDoc = async(key,file) => {
         console.log(error);
     }
 
-    // const web3Modal = new Web3Modal()
-    // const connection = await web3Modal.connect()
-    // const provider = new ethers.providers.Web3Provider(connection)
-    // const signer = provider.getSigner()
+    const web3Modal = new Web3Modal()
+    const connection = await web3Modal.connect()
+    const provider = new ethers.providers.Web3Provider(connection)
+    const signer = provider.getSigner()
 
-    // const Contract = new ethers.Contract(contractAddress, ABI, signer)
+    const Contract = new ethers.Contract(contractAddress, ABI, signer)
     
-    // try {
-    //     let transaction = await Contract.newVersion(key,url)
-    //     console.log(transaction);
-    //     let tx = await transaction.wait()
-    //     let event = tx.events[0]
-    //     console.log(event);
-    // } catch (err) {
-    //     console.log(err);
-    // }
+    try {
+        let transaction = await Contract.newVersion(key,url)
+        await transaction.wait()
+    } catch (err) {
+        console.log(err);
+    }
 
 }
 
